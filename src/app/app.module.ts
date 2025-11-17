@@ -1,5 +1,10 @@
 import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule } from '@angular/core'
+import { registerLocaleData } from '@angular/common'
+import localeHe from '@angular/common/locales/he'
 import { FormsModule } from '@angular/forms'
+
+// Register Hebrew locale
+registerLocaleData(localeHe)
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
@@ -19,7 +24,10 @@ import { AppComponent } from './app.component'
 // import { CommonUIElementsModule } from 'common-ui-elements'
 import { HomeComponent } from './home/home.component'
 import { UsersComponent } from './users/users.component'
-import { BaseInputFieldComponent } from './common/components/base-input-field.component'
+import { BaseInputFieldComponent } from './common/components/base-input-field/base-input-field.component'
+import { YesNoQuestionComponent } from './common/components/yes-no-question/yes-no-question.component'
+import { BaseTableComponent } from './common/components/base-table/base-table.component'
+import { TableColumnDirective } from './common/components/base-table/table-column.directive'
 // import { DataAreaDialogComponent } from './common/data-area-dialog/data-area-dialog.component'
 import { remult } from 'remult'
 // import { TextAreaDataControlComponent } from './common/textarea-data-control/textarea-data-control.component'
@@ -39,7 +47,9 @@ import { SignInController } from './users/SignInController'
     UsersComponent,
     HomeComponent,
     BaseInputFieldComponent,
-    // YesNoQuestionComponent,
+    YesNoQuestionComponent,
+    BaseTableComponent,
+    TableColumnDirective,
     // DataAreaDialogComponent,
     // TextAreaDataControlComponent,
     // AddressInputComponent,

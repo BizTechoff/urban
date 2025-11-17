@@ -1,0 +1,257 @@
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, ContentChildren, QueryList, TemplateRef } from '@angular/core'
+import { TableColumn, SortEvent, PageEvent } from './table.interfaces'
+import { TableColumnDirective } from './table-column.directive'
+
+@Component({
+  selector: 'app-base-table',
+  templateUrl: './base-table.component.html',
+  styleUrls: ['./base-table.component.scss']
+})
+export class BaseTableComponent implements OnInit, OnChanges {
+  // Data inputs
+  @Input() data: any[] | null = []
+  @Input() columns?: TableColumn[]
+  @Input() loading = false
+  @Input() totalRecords = 0
+  @Input() currentPage = 1
+  @Input() pageSize = 30
+
+  // Feature toggles
+  @Input() sortable = true
+  @Input() selectable = false
+  @Input() showPagination = true
+  @Input() showFilter = true
+  @Input() readonly = false
+  @Input() showActions = true
+  @Input() showAdd = true  // Show Add button
+  @Input() hiddenColumns: string[] = []
+  @Input() emptyMessage = 'אין נתונים להצגה'
+  @Input() addButtonText = 'הוסף'  // Add button text
+
+  // Events
+  @Output() onSort = new EventEmitter<SortEvent>()
+  @Output() onFilter = new EventEmitter<string>()
+  @Output() onPageChange = new EventEmitter<PageEvent>()
+  @Output() onRefresh = new EventEmitter<void>()
+  @Output() onRowClick = new EventEmitter<any>()
+  @Output() onSelectionChange = new EventEmitter<any[]>()
+  @Output() onEdit = new EventEmitter<any>()
+  @Output() onDelete = new EventEmitter<any>()
+  @Output() onAdd = new EventEmitter<void>()  // Add event
+  @Output() onColumnsChange = new EventEmitter<string[]>()
+
+  // Custom column templates
+  @ContentChildren(TableColumnDirective) columnTemplates!: QueryList<TableColumnDirective>
+
+  // Internal state
+  visibleColumns: TableColumn[] = []
+  allColumns: TableColumn[] = []
+  currentSort: SortEvent | null = null
+  filterText = ''
+  selectedRows: Set<any> = new Set()
+  selectAll = false
+
+  // Pagination
+  totalPages = 0
+  displayedPages: number[] = []
+  Math = Math  // Expose Math to template
+
+  ngOnInit() {
+    this.initializeColumns()
+    this.calculatePagination()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data'] || changes['columns'] || changes['hiddenColumns']) {
+      this.initializeColumns()
+    }
+    if (changes['totalRecords'] || changes['pageSize']) {
+      this.calculatePagination()
+    }
+  }
+
+  private initializeColumns() {
+    const dataArray = Array.isArray(this.data) ? this.data : (this.data || [])
+
+    if (this.columns) {
+      // Use provided columns
+      this.allColumns = [...this.columns]
+    } else if (dataArray.length > 0) {
+      // Auto-detect columns from data
+      const firstRow = dataArray[0]
+      this.allColumns = Object.keys(firstRow).map(key => ({
+        field: key,
+        header: this.getFieldCaption(key, firstRow),
+        sortable: true
+      }))
+    }
+
+    // Filter out hidden columns with validation
+    const validHiddenColumns = this.hiddenColumns.filter(col =>
+      this.allColumns.some(c => c.field === col)
+    )
+
+    // Warn about invalid hidden columns
+    if (this.hiddenColumns.length !== validHiddenColumns.length) {
+      const invalid = this.hiddenColumns.filter(col =>
+        !this.allColumns.some(c => c.field === col)
+      )
+      console.warn('Some hidden columns do not exist:', invalid)
+    }
+
+    // Set visible columns
+    this.visibleColumns = this.allColumns.filter(col =>
+      !col.hidden && !validHiddenColumns.includes(col.field)
+    )
+  }
+
+  private getFieldCaption(field: string, row: any): string {
+    // Try to get caption from Remult field metadata
+    try {
+      const repo = (row as any).$
+      if (repo && repo[field] && repo[field].caption) {
+        return repo[field].caption
+      }
+    } catch (e) {
+      // Ignore - not a Remult entity
+    }
+
+    // Fallback to field name
+    return field
+  }
+
+  // Sorting
+  sortColumn(column: TableColumn) {
+    if (!this.sortable || column.sortable === false) return
+
+    const direction: 'asc' | 'desc' =
+      this.currentSort?.field === column.field && this.currentSort.direction === 'asc'
+        ? 'desc'
+        : 'asc'
+
+    this.currentSort = { field: column.field, direction }
+    this.onSort.emit(this.currentSort)
+  }
+
+  getSortIcon(column: TableColumn): string {
+    if (!this.currentSort || this.currentSort.field !== column.field) {
+      return ''
+    }
+    return this.currentSort.direction === 'asc' ? '▲' : '▼'
+  }
+
+  // Filtering
+  onFilterChange(event: Event) {
+    const input = event.target as HTMLInputElement
+    this.filterText = input.value
+    this.onFilter.emit(this.filterText)
+  }
+
+  clearFilter() {
+    this.filterText = ''
+    this.onFilter.emit('')
+  }
+
+  // Pagination
+  private calculatePagination() {
+    this.totalPages = Math.ceil(this.totalRecords / this.pageSize)
+    this.updateDisplayedPages()
+  }
+
+  private updateDisplayedPages() {
+    const maxPages = 5
+    const pages: number[] = []
+
+    let start = Math.max(1, this.currentPage - Math.floor(maxPages / 2))
+    let end = Math.min(this.totalPages, start + maxPages - 1)
+
+    if (end - start + 1 < maxPages) {
+      start = Math.max(1, end - maxPages + 1)
+    }
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i)
+    }
+
+    this.displayedPages = pages
+  }
+
+  goToPage(page: number) {
+    if (page < 1 || page > this.totalPages || page === this.currentPage) return
+    this.onPageChange.emit({ page, pageSize: this.pageSize })
+  }
+
+  nextPage() {
+    this.goToPage(this.currentPage + 1)
+  }
+
+  previousPage() {
+    this.goToPage(this.currentPage - 1)
+  }
+
+  // Selection
+  toggleSelectAll() {
+    const dataArray = Array.isArray(this.data) ? this.data : []
+
+    if (this.selectAll) {
+      dataArray.forEach(row => this.selectedRows.add(row))
+    } else {
+      this.selectedRows.clear()
+    }
+
+    this.onSelectionChange.emit(Array.from(this.selectedRows))
+  }
+
+  toggleRowSelection(row: any) {
+    if (this.selectedRows.has(row)) {
+      this.selectedRows.delete(row)
+    } else {
+      this.selectedRows.add(row)
+    }
+
+    const dataArray = Array.isArray(this.data) ? this.data : []
+    this.selectAll = dataArray.length > 0 && this.selectedRows.size === dataArray.length
+
+    this.onSelectionChange.emit(Array.from(this.selectedRows))
+  }
+
+  isRowSelected(row: any): boolean {
+    return this.selectedRows.has(row)
+  }
+
+  // Row actions
+  handleRowClick(row: any) {
+    this.onRowClick.emit(row)
+  }
+
+  handleEdit(row: any, event: Event) {
+    event.stopPropagation()
+    this.onEdit.emit(row)
+  }
+
+  handleDelete(row: any, event: Event) {
+    event.stopPropagation()
+    this.onDelete.emit(row)
+  }
+
+  // Custom template
+  getColumnTemplate(field: string): TemplateRef<any> | null {
+    const columnDir = this.columnTemplates?.find(t => t.field === field)
+    return columnDir?.template || null
+  }
+
+  // Refresh
+  refresh() {
+    this.onRefresh.emit()
+  }
+
+  // Helper to get cell value
+  getCellValue(row: any, column: TableColumn): any {
+    return row[column.field]
+  }
+
+  // Track by for performance
+  trackByField(index: number, item: any): any {
+    return item.id || index
+  }
+}

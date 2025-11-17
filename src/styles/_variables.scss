@@ -1,0 +1,33 @@
+// Global Theme Variables
+// ניתן לשנות את הצבעים כאן ולהשפיע על כל האפליקציה
+
+// Primary Colors
+$primary-color: #1976d2;
+$primary-dark: #1565c0;
+$primary-light: #42a5f5;
+
+// Toolbar
+$mat-toolbar-bg: $primary-color;
+$mat-toolbar-color: white;
+
+// Buttons
+$add-button-bg: $primary-color;
+$add-button-bg-hover: $primary-dark;
+$add-button-color: white;
+
+// Table
+$table-header-bg: #fafafa;
+$table-border-color: #e0e0e0;
+$table-hover-bg: #f5f5f5;
+
+// Status Colors
+$success-color: green;
+$error-color: red;
+$warning-color: orange;
+$info-color: blue;
+$disabled-color: gray;
+
+// Text Colors
+$text-primary: #333;
+$text-secondary: #666;
+$text-disabled: #999;
