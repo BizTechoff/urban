@@ -3,10 +3,12 @@ import { createPostgresConnection } from 'remult/postgres'
 import { User } from '../app/users/user'
 import { SignInController, getUser } from '../app/users/SignInController'
 import { UpdatePasswordController } from '../app/users/UpdatePasswordController'
+import { UsersController } from '../shared/controllers/UsersController'
 
 export const entities = [User]
 export const api = remultExpress({
-  controllers: [SignInController, UpdatePasswordController],
+  admin: true,
+  controllers: [SignInController, UpdatePasswordController, UsersController],
   entities,
   getUser,
   dataProvider: async () => {

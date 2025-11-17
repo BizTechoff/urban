@@ -7,6 +7,7 @@ import { AdminGuard, NotAuthenticatedGuard } from './common/authGuard'
 import { ShowDialogOnErrorErrorHandler } from './common/showDialogOnErrorErrorHandler'
 import { terms } from './terms'
 import { UsersComponent } from './users/users.component'
+import { SilentRedirectComponent } from './users/silent-redirect.component'
 
 const defaultRoute = terms.home
 const routes: Routes = [
@@ -16,9 +17,9 @@ const routes: Routes = [
     component: UsersComponent,
     canActivate: [AdminGuard],
   },
-  { path: '**', redirectTo: '/' + defaultRoute, pathMatch: 'full' },
+  { path: '', component: SilentRedirectComponent, pathMatch: 'full' },
+  { path: '**', component: SilentRedirectComponent } // תופס כל נתיב 
 ]
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],//, CommonUIElementsModule],
   providers: [

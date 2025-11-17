@@ -59,3 +59,10 @@ export class AdminGuard extends AuthenticatedGuard {
     return Roles.admin
   }
 }
+
+@Injectable()
+export class ManagerGuard extends AuthenticatedGuard {
+  override isAllowed() {
+    return Roles.manager
+  }
+}

@@ -12,7 +12,7 @@ import {
 import { Roles } from './roles'
 import { terms } from '../terms'
 
-@Entity<User>('Users', {
+@Entity<User>('users', {
   allowApiCrud: true,
   // allowApiRead: Allow.authenticated,
   // allowApiUpdate: Allow.authenticated,
@@ -29,28 +29,38 @@ import { terms } from '../terms'
   },
 })
 export class User extends IdEntity {
+
   @Fields.string({
-    validate: [Validators.required, Validators.uniqueOnBackend],
+    validate: [Validators.required(terms.requiredFiled), Validators.uniqueOnBackend(terms.uniqueFiled)],
     caption: terms.username,
   })
   name = ''
+  
   @Fields.string({ includeInApi: false })
   password = ''
-  @Fields.date({
-    allowApiUpdate: false,
-  })
-  createDate = new Date()
 
   @Fields.boolean({
     allowApiUpdate: Roles.admin,
     caption: terms.admin,
   })
   admin = false
+
+  @Fields.boolean({
+    allowApiUpdate: Roles.admin,
+    caption: terms.manager,
+  })
+  manager = false
+
   @Fields.boolean({
     allowApiUpdate: Roles.admin,
     caption: terms.disabled,
   })
   disabled = false
+
+  @Fields.date({
+    allowApiUpdate: false,
+  })
+  createDate = new Date()
 
   async hashAndSetPassword(password: string) {
     this.password = (await import('password-hash')).generate(password)

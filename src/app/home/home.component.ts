@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { remult } from 'remult'
+import { UIToolsService } from '../common/UIToolsService'
+import { terms } from '../terms'
 import { SignInController } from '../users/SignInController'
 
 @Component({
@@ -10,12 +13,18 @@ import { SignInController } from '../users/SignInController'
 export class HomeComponent implements OnInit {
   signer = new SignInController()
 
-  constructor() { }
+  constructor(private router: Router, private ui: UIToolsService) { }
 
   ngOnInit() { }
 
   async signIn() {
-    remult.user = await this.signer.signIn()
+    try {
+      remult.user = await this.signer.signIn()
+      if (remult.user) {
+        this.router.navigate([`/${terms.userAccounts}`]);
+      }
+    }
+    catch (error: any) { this.ui.yesNoQuestion(error?.message + '') }
   }
 
 }

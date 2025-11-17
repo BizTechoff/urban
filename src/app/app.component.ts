@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   remult = remult
 
   async signIn() {
-    const signIn = new SignInController()
+    // const signIn = new SignInController()
     // openDialog(
     //   DataAreaDialogComponent,
     //   (i) =>
@@ -48,7 +48,8 @@ export class AppComponent implements OnInit {
   signOut() {
     SignInController.signOut()
     remult.user = undefined
-    this.router.navigate(['/'])
+      this.router.navigate([`/${terms.home}`]);
+    // this.router.navigate(['/'])
   }
 
   async updateInfo() {

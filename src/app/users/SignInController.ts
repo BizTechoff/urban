@@ -1,3 +1,4 @@
+import type express from 'express'
 import {
   Allow,
   BackendMethod,
@@ -12,7 +13,6 @@ import {
 import { terms } from '../terms'
 import { Roles } from './roles'
 import { User } from './user'
-import type express from 'express'
 import type from 'cookie-session'
 
 declare module 'remult' {
@@ -25,12 +25,12 @@ declare module 'remult' {
 export class SignInController extends ControllerBase {
   @Fields.string({
     caption: terms.username,
-    validate: Validators.required,
+    validate: Validators.required(terms.requiredFiled),
   })
   user = ''
   @Fields.string({
     caption: terms.password,
-    validate: Validators.required,
+    validate: Validators.required(terms.requiredFiled),
     inputType: 'password',
   })
   password = ''
@@ -84,6 +84,9 @@ export async function setSessionUserBasedOnUserRow(user?: User) {
 
   if (user.admin) {
     roles.push(Roles.admin)
+  }
+  else if (user.manager) {
+    roles.push(Roles.manager)
   }
   const userInfo: UserInfo = { id: user.id, name: user.name, roles }
   if (remult.context.request?.session) {

@@ -64,12 +64,12 @@ export class UIToolsService {
     return this.mediaMatcher.matches
   }
 
-  async yesNoQuestion(question: string, isAQuestion = false) {
-    // return await openDialog(
-    //   YesNoQuestionComponent,
-    //   (d) => (d.args = { message: question, isAQuestion: isAQuestion }),
-    //   (d) => d.okPressed
-    // )
+  async yesNoQuestion(question: string, isQuestion = false) {
+    return await openDialog(
+      YesNoQuestionComponent,
+      (d) => (d.args = { message: question, isQuestion: isQuestion }),
+      (d) => d.okPressed
+    )
   }
   
   async confirmDelete(of: string) {
