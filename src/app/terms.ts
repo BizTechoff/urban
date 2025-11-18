@@ -15,7 +15,7 @@ export const terms = {
   yes: 'כן', 
   no: 'לא',
   ok: 'אישור',
-  areYouSureYouWouldLikeToDelete: 'האם אתה בטוח שברצונך למחוק',
+  areYouSureYouWouldLikeToDelete: 'האם ברצונך למחוק את',
   cancel: 'ביטול',
   close: 'סגור',
   home: 'דף הבית',
@@ -24,10 +24,10 @@ export const terms = {
   signOut: 'יציאה',
   resetPassword: 'איפוס סיסמה',
   passwordDeletedSuccessful: 'הסיסמה נמחקה בהצלחה',
-  passwordDeleteConfirmOf: 'האם אתה בטוח שברצונך למחוק את הסיסמה של',
+  passwordDeleteConfirmOf: 'האם ברצונך למחוק את הסיסמה של',
   rememberOnThisDevice: 'זכור אותי במכשיר זה',
   RTL: true,
   requiredFiled: 'שדה חובה',
-  uniqueFiled: 'שדה קיים כבר',
+  uniqueFiled: 'קיים כבר',
   createDate: 'תאריך יצירה'
 }
