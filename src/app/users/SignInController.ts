@@ -10,14 +10,20 @@ import {
   UserInfo,
   Validators,
 } from 'remult'
+import { UsersController } from '../../shared/controllers/UsersController'
 import { terms } from '../terms'
 import { Roles } from './roles'
 import { User } from './user'
-import type from 'cookie-session'
 
 declare module 'remult' {
   export interface RemultContext {
-    request?: express.Request
+    request?: express.Request & { session?: any }
+  }
+}
+
+declare module 'express-serve-static-core' {
+  interface Request {
+    session?: any
   }
 }
 

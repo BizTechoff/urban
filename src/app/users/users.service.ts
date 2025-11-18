@@ -42,4 +42,5 @@ export class UsersService {
   async resetUserPassword(userId: string): Promise<void> {
     return await UsersController.resetUserPassword(userId)
   }
+  
 }

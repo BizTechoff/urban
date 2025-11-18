@@ -9,6 +9,7 @@ import {
 } from 'remult'
 import { terms } from '../terms'
 import { User } from './user'
+import { UsersController } from '../../shared/controllers/UsersController'
 
 @Controller('updatePassword')
 export class UpdatePasswordController extends ControllerBase {
@@ -37,4 +38,5 @@ export class UpdatePasswordController extends ControllerBase {
     await user.hashAndSetPassword(this.password)
     await user.save()
   }
+  
 }

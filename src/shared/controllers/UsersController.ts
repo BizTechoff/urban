@@ -1,6 +1,6 @@
-import { BackendMethod, remult } from 'remult'
-import { User } from '../../app/users/user'
+import { BackendMethod, Controller, ControllerBase, remult } from 'remult'
 import { Roles } from '../../app/users/roles'
+import { User } from '../../app/users/user'
 
 export interface GetUsersRequest {
   filter?: string
@@ -15,7 +15,9 @@ export interface GetUsersResponse {
   totalRecords: number
 }
 
-export class UsersController {
+@Controller('user')
+export class UsersController extends ControllerBase {
+
   @BackendMethod({ allowed: true })
   static async getUsers(request: GetUsersRequest): Promise<GetUsersResponse> {
     const {
@@ -60,4 +62,46 @@ export class UsersController {
       await user.resetPassword()
     }
   }
+
+  @BackendMethod({ allowed: Roles.admin })
+  static async createUser(userData: {
+    name: string
+    password: string
+    admin: boolean
+    manager: boolean
+    disabled: boolean
+  }): Promise<User> {
+    const user = remult.repo(User).create()
+    user.name = userData.name
+    user.admin = userData.admin
+    user.manager = userData.manager
+    user.disabled = userData.disabled
+    // Use the User entity method which properly hashes on backend
+    await user.hashAndSetPassword(userData.password)
+    await user.save()
+    return user
+  }
+
+  @BackendMethod({ allowed: Roles.admin })
+  static async updateUser(
+    userId: string,
+    userData: {
+      name: string
+      admin: boolean
+      manager: boolean
+      disabled: boolean
+    }
+  ): Promise<User> {
+    const user = await remult.repo(User).findId(userId)
+    if (!user) {
+      throw new Error('משתמש לא נמצא')
+    }
+    user.name = userData.name
+    user.admin = userData.admin
+    user.manager = userData.manager
+    user.disabled = userData.disabled
+    await user.save()
+    return user
+  }
+
 }
