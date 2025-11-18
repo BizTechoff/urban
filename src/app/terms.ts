@@ -9,14 +9,15 @@ export const terms = {
   changePassword: 'שינוי סיסמה',
   hello: 'שלום',
   invalidOperation: 'פעולה לא חוקית',
-  admin: 'מנהל',
+  admin: 'אדמין',
   manager: 'מנהל',
   disabled: 'לא פעיל',
-  yes: 'כן',
+  yes: 'כן', 
   no: 'לא',
   ok: 'אישור',
   areYouSureYouWouldLikeToDelete: 'האם אתה בטוח שברצונך למחוק',
   cancel: 'ביטול',
+  close: 'סגור',
   home: 'דף הבית',
   userAccounts: 'משתמשים',
   invalidSignIn: 'פרטי התחברות שגויים',
@@ -27,5 +28,6 @@ export const terms = {
   rememberOnThisDevice: 'זכור אותי במכשיר זה',
   RTL: true,
   requiredFiled: 'שדה חובה',
-  uniqueFiled: 'שדה קיים כבר'
+  uniqueFiled: 'שדה קיים כבר',
+  createDate: 'תאריך יצירה'
 }
