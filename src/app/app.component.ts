@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { Router, Route, ActivatedRoute } from '@angular/router'
 import { MatSidenav } from '@angular/material/sidenav'
+import { ActivatedRoute, Route, Router } from '@angular/router'
 
 import { User } from './users/user'
 // import { DataAreaDialogComponent } from './common/data-area-dialog/data-area-dialog.component'
-import { terms } from './terms'
-import { SignInController } from './users/SignInController'
-import { UpdatePasswordController } from './users/UpdatePasswordController'
 import { remult } from 'remult'
 import { RouteHelperService } from './common/routeHelperService'
 import { UIToolsService } from './common/UIToolsService'
+import { terms } from './terms'
+import { SignInController } from './users/SignInController'
+import { UpdatePasswordController } from './users/UpdatePasswordController'
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     public activeRoute: ActivatedRoute,
     private routeHelper: RouteHelperService,
     public uiService: UIToolsService
-  ) {}
+  ) { }
   terms = terms
   remult = remult
 
@@ -42,13 +42,17 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
+  }
+
+  openBusinessWebSite() {
+    window?.open(`https://limorgalmelekh.co.il/`, '_blank')
   }
 
   signOut() {
     SignInController.signOut()
     remult.user = undefined
-      this.router.navigate([`/${terms.home}`]);
+    this.router.navigate([`/${terms.home}`]);
     // this.router.navigate(['/'])
   }
 

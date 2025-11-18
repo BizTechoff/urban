@@ -27,6 +27,25 @@
   box-shadow: var(--mat-app-elevation-shadow-level-10, none);
 }
 
+.sidebar-header {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+.sidebar-logo {
+  max-width: 80%;
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+}
+
 .wrapper {
   padding: 0 10px;
 

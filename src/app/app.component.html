@@ -35,10 +35,9 @@
     {
     <mat-sidenav #sidenav class="app-sidenav mat-elevation-z10 no-print" [opened]="!uiService.isScreenSmall()"
       [mode]="uiService.isScreenSmall() ? 'over' : 'side'">
-      <div style="width: 100%; text-align: center"></div>
-      <h3 *ngIf="remult.authenticated()">
-        {{ terms.hello }} {{ remult.user!.name }}
-      </h3>
+      <div class="sidebar-header" (click)="openBusinessWebSite()">
+        <img src="./assets/logo-transparent.png" alt="Logo" class="sidebar-logo">
+      </div>
       <mat-nav-list role="list">
         <ng-container *ngFor="let m of router.config">
           <a mat-list-item *ngIf="shouldDisplayRoute(m)" routerLinkActive="active-route" [routerLink]="m.path"
