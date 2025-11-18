@@ -1,8 +1,10 @@
 import { Injectable, NgZone } from "@angular/core"
 import { MatSnackBar } from "@angular/material/snack-bar"
+import { UserDetailsModalComponent } from "../users/user-details-modal/user-details-modal.component"
 import { BusyService } from "./busyService"
 import { YesNoQuestionComponent } from "./components/yes-no-question/yes-no-question.component"
 import { openDialog } from "./openDialog"
+import { terms } from "../terms"
 
 
 export function extractError(err: any): string {
@@ -42,7 +44,7 @@ export class UIToolsService {
   }
 
   info(info: string): any {
-    this.snackBar.open(info, 'terms.close', { duration: 4000 })
+    this.snackBar.open(info, terms.close, { duration: 4000 })
   }
 
   async error(err: any, taskId?: string) {
@@ -50,14 +52,14 @@ export class UIToolsService {
     if (message == 'Network Error') return
     return await openDialog(
       YesNoQuestionComponent,
-      // (d) =>
-      // (d.args = {
-      //   message,
-      //   isAQuestion: false,
-      // })
+      (d) =>
+      (d.args = {
+        message,
+        isQuestion: false,
+      })
     )
   }
-  
+
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 720px)`)
 
   isScreenSmall() {
@@ -71,11 +73,19 @@ export class UIToolsService {
       (d) => d.okPressed
     )
   }
-  
+
   async confirmDelete(of: string) {
     // return await this.yesNoQuestion(
     //   terms.areYouSureYouWouldLikeToDelete + ' ' + of + '?'
     // )
   }
-  
+
+  async openUserDetailsModal(userId = '') {
+    return await openDialog(
+      UserDetailsModalComponent,
+      (d) => d.args = { userId: userId },
+      (d) => d?.changed || false
+    )
   }
+
+}
