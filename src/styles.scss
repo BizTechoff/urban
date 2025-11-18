@@ -12,17 +12,10 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the theme object.
+// Define the theme object with yellow/gold palette
 $urban-theme: mat.define-theme((color: (theme-type: light,
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-        use-system-variables: true),
-      typography:(plain-family:'Rubik', brand-family:'Rubik', use-system-variables: true),
-    ));
-
-$green-theme: mat.define-theme((color: (theme-type: light,
-        primary: mat.$green-palette,
-        tertiary: mat.$blue-palette,
+        primary: mat.$yellow-palette,
+        tertiary: mat.$orange-palette,
         use-system-variables: true),
       typography:(plain-family:'Rubik', brand-family:'Rubik', use-system-variables: true),
     ));
@@ -83,18 +76,21 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Rubik', 'Roboto', 'Helvetica Neue', sans-serif;
+  color: $text-primary;
+  background-color: #fafafa;
 }
 
 a {
   background-color: transparent;
-  color: #337ab7;
+  color: $golden-color;
   text-decoration: none;
+  transition: color 0.2s;
 }
 
 a:hover {
   background-color: transparent;
-  color: #337ab7;
+  color: $golden-dark;
   text-decoration: underline;
 }
 
