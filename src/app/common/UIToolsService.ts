@@ -1,10 +1,14 @@
 import { Injectable, NgZone } from "@angular/core"
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { UserDetailsModalComponent } from "../users/user-details-modal/user-details-modal.component"
-import { BusyService } from "./busyService"
+import { ProjectDetailsComponent } from "../projects/project-details/project-details.component"
+import { BuildingDetailsComponent } from "../buildings/building-details/building-details.component"
+import { ApartmentDetailsComponent } from "../apartments/apartment-details/apartment-details.component"
+import { TenantDetailsComponent } from "../tenants/tenant-details/tenant-details.component"
 import { YesNoQuestionComponent } from "./components/yes-no-question/yes-no-question.component"
 import { openDialog } from "./openDialog"
 import { terms } from "../terms"
+import { BusyService } from "./components/wait/busyService"
 
 
 export function extractError(err: any): string {
@@ -84,6 +88,38 @@ export class UIToolsService {
     return await openDialog(
       UserDetailsModalComponent,
       (d) => d.args = { userId: userId },
+      (d) => d?.changed || false
+    )
+  }
+
+  async openProjectDetails(projectId = '') {
+    return await openDialog(
+      ProjectDetailsComponent,
+      (d) => d.args = { projectId: projectId },
+      (d) => d?.changed || false
+    )
+  }
+
+  async openBuildingDetails(buildingId = '', projectId = '') {
+    return await openDialog(
+      BuildingDetailsComponent,
+      (d) => d.args = { buildingId: buildingId, projectId: projectId },
+      (d) => d?.changed || false
+    )
+  }
+
+  async openApartmentDetails(apartmentId = '', buildingId = '') {
+    return await openDialog(
+      ApartmentDetailsComponent,
+      (d) => d.args = { apartmentId: apartmentId, buildingId: buildingId },
+      (d) => d?.changed || false
+    )
+  }
+
+  async openTenantDetails(tenantId = '', apartmentId = '') {
+    return await openDialog(
+      TenantDetailsComponent,
+      (d) => d.args = { tenantId: tenantId, apartmentId: apartmentId },
       (d) => d?.changed || false
     )
   }

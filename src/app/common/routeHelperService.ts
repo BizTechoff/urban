@@ -1,6 +1,6 @@
 import { Injectable, Injector } from "@angular/core"
 import { Route, CanActivate, Router } from "@angular/router"
-import { dummyRoute } from "./authGuard"
+import { dummyRoute } from "../users/authGuard"
 
 @Injectable()
 export class RouteHelperService {

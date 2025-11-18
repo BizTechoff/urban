@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     try {
       remult.user = await this.signer.signIn()
       if (remult.user) {
-        this.router.navigate([`/${terms.userAccounts}`]);
+        this.router.navigate([`/${'tenants'}`]);
       }
     }
     catch (error: any) { this.ui.yesNoQuestion(error?.message + '') }

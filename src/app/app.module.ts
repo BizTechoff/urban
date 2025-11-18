@@ -31,8 +31,7 @@ import { TableColumnDirective } from './common/components/base-table/table-colum
 import { remult } from 'remult'
 // import { TextAreaDataControlComponent } from './common/textarea-data-control/textarea-data-control.component'
 import { UIToolsService } from './common/UIToolsService'
-import { AdminGuard, AuthenticatedGuard, NotAuthenticatedGuard } from './common/authGuard'
-import { BusyService } from './common/busyService'
+import { AdminGuard, AuthenticatedGuard, NotAuthenticatedGuard } from './users/authGuard'
 import { Remult } from 'remult'
 import { RouteHelperService } from './common/routeHelperService'
 import { ShowDialogOnErrorErrorHandler } from './common/showDialogOnErrorErrorHandler'
@@ -40,7 +39,16 @@ import { setMatDialog } from './common/openDialog'
 import { MatDialog } from '@angular/material/dialog'
 import { SignInController } from './users/SignInController'
 import { UserDetailsModalComponent } from './users/user-details-modal/user-details-modal.component';
-import { UserListComponent } from './users/user-list/user-list.component'
+import { UserListComponent } from './users/user-list/user-list.component';
+import { ProjectListComponent } from './projects/project-list/project-list.component';
+import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
+import { BuildingListComponent } from './buildings/building-list/building-list.component';
+import { BuildingDetailsComponent } from './buildings/building-details/building-details.component';
+import { ApartmentListComponent } from './apartments/apartment-list/apartment-list.component';
+import { ApartmentDetailsComponent } from './apartments/apartment-details/apartment-details.component';
+import { TenantListComponent } from './tenants/tenant-list/tenant-list.component';
+import { TenantDetailsComponent } from './tenants/tenant-details/tenant-details.component'
+import { BusyService } from './common/components/wait/busyService'
 
 @NgModule({
   declarations: [
@@ -52,7 +60,15 @@ import { UserListComponent } from './users/user-list/user-list.component'
     BaseTableComponent,
     TableColumnDirective,
     UserDetailsModalComponent,
-    UserListComponent
+    UserListComponent,
+    ProjectListComponent,
+    ProjectDetailsComponent,
+    BuildingListComponent,
+    BuildingDetailsComponent,
+    ApartmentListComponent,
+    ApartmentDetailsComponent,
+    TenantListComponent,
+    TenantDetailsComponent
     // DataAreaDialogComponent,
     // TextAreaDataControlComponent,
     // AddressInputComponent,

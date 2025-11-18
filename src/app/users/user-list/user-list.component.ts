@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core'
 import { remult } from 'remult'
-import { BusyService } from '../../common/busyService'
 import { SortEvent, PageEvent } from '../../common/components/base-table/table.interfaces'
 import { UIToolsService } from '../../common/UIToolsService'
 import { terms } from '../../terms'
 import { Roles } from '../roles'
 import { User } from '../user'
 import { UsersService } from '../users.service'
+import { BusyService } from '../../common/components/wait/busyService'
 
 @Component({
   selector: 'app-user-list',

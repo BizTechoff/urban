@@ -1,0 +1,25 @@
+<div class="tenants-container">
+  <h2>ניהול דיירים</h2>
+  <app-base-table
+    [data]="tenants"
+    [entityType]="tenantEntity"
+    [loading]="loading"
+    [totalRecords]="totalRecords"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [sortable]="true"
+    [showFilter]="true"
+    [showPagination]="true"
+    [showActions]="true"
+    [showAdd]="true"
+    [addButtonText]="'הוסף דייר'"
+    (onSort)="onSort($event)"
+    (onFilter)="onFilter($event)"
+    (onPageChange)="onPageChange($event)"
+    (onRefresh)="onRefresh()"
+    (onAdd)="addTenant()"
+    (onEdit)="editTenant($event)"
+    (onDelete)="deleteTenant($event)"
+    [hiddenColumns]="['id']">
+  </app-base-table>
+</div>

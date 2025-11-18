@@ -17,7 +17,7 @@ export class SilentRedirectComponent implements OnInit {
       console.log('routeTo 1: ', this.router.url)
 
       if (!this.router.url || this.router.url === '/' || this.router.url === terms.home) {// משתמש מחובר - הפנה לרשימת תורמים
-        this.router.navigate([`/${terms.userAccounts}`]);
+        this.router.navigate([`/tenants`]);
       }
       else if (this.router.url) {
         // if (this.i18n.currentLanguage === 'he') {
@@ -32,7 +32,7 @@ export class SilentRedirectComponent implements OnInit {
     } else {
       console.log('routeTo 2: HOME')
       // משתמש לא מחובר - הפנה לדף הבית
-      this.router.navigate([`/${terms.home}`]);
+      this.router.navigate([`/${'home'}`]);
     }
   }
 }

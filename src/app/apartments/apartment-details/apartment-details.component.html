@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <h2>{{ isNew ? 'הוספת דירה חדשה' : 'עריכת דירה' }}</h2>
+</div>
+<div class="modal-content">
+  <app-base-input-field [label]="terms.floor" type="number" [(ngModel)]="apartment.floor" [required]="true"></app-base-input-field>
+  <app-base-input-field [label]="terms.propertyType" type="text" [(ngModel)]="apartment.propertyType"></app-base-input-field>
+  <app-base-input-field [label]="terms.apartmentSize" type="number" [(ngModel)]="apartment.size"></app-base-input-field>
+</div>
+<div class="modal-footer">
+  <button mat-button (click)="cancel()">{{ terms.cancel }}</button>
+  <button mat-raised-button color="primary" (click)="save()">{{ terms.ok }}</button>
+</div>

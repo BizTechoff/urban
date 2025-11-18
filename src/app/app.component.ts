@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
   signOut() {
     SignInController.signOut()
     remult.user = undefined
-    this.router.navigate([`/${terms.home}`]);
+    this.router.navigate([`/${'home'}`]);
     // this.router.navigate(['/'])
   }
 

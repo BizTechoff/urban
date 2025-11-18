@@ -4,11 +4,28 @@ import { User } from '../app/users/user'
 import { SignInController, getUser } from '../app/users/SignInController'
 import { UpdatePasswordController } from '../app/users/UpdatePasswordController'
 import { UsersController } from '../shared/controllers/UsersController'
+import { Project } from '../app/projects/project'
+import { Building } from '../app/buildings/building'
+import { Apartment } from '../app/apartments/apartment'
+import { Tenant } from '../app/tenants/tenant'
+import { Message } from '../app/messages/message'
+import { ProjectsController } from '../shared/controllers/ProjectsController'
+import { BuildingsController } from '../shared/controllers/BuildingsController'
+import { ApartmentsController } from '../shared/controllers/ApartmentsController'
+import { TenantsController } from '../shared/controllers/TenantsController'
 
-export const entities = [User]
+export const entities = [User, Project, Building, Apartment, Tenant, Message]
 export const api = remultExpress({
   admin: true,
-  controllers: [SignInController, UpdatePasswordController, UsersController],
+  controllers: [
+    SignInController,
+    UpdatePasswordController,
+    UsersController,
+    ProjectsController,
+    BuildingsController,
+    ApartmentsController,
+    TenantsController
+  ],
   entities,
   getUser,
   dataProvider: async () => {

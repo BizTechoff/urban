@@ -1,0 +1,25 @@
+<div class="apartments-container">
+  <h2>ניהול דירות</h2>
+  <app-base-table
+    [data]="apartments"
+    [entityType]="apartmentEntity"
+    [loading]="loading"
+    [totalRecords]="totalRecords"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [sortable]="true"
+    [showFilter]="true"
+    [showPagination]="true"
+    [showActions]="true"
+    [showAdd]="true"
+    [addButtonText]="'הוסף דירה'"
+    (onSort)="onSort($event)"
+    (onFilter)="onFilter($event)"
+    (onPageChange)="onPageChange($event)"
+    (onRefresh)="onRefresh()"
+    (onAdd)="addApartment()"
+    (onEdit)="editApartment($event)"
+    (onDelete)="deleteApartment($event)"
+    [hiddenColumns]="['id']">
+  </app-base-table>
+</div>

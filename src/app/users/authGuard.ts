@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core"
 import { ActivatedRouteSnapshot, CanActivate, Router } from "@angular/router"
 import { Remult, Allowed } from "remult"
-import { RouteHelperService } from "./routeHelperService"
-import { Roles } from "../users/roles"
+import { RouteHelperService } from "../common/routeHelperService"
+import { Roles } from "./roles"
 
 export declare type AngularComponent = { new (...args: any[]): any }
 

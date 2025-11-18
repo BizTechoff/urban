@@ -12,7 +12,7 @@ export const terms = {
   admin: 'אדמין',
   manager: 'מנהל',
   disabled: 'לא פעיל',
-  yes: 'כן', 
+  yes: 'כן',
   no: 'לא',
   ok: 'אישור',
   areYouSureYouWouldLikeToDelete: 'האם ברצונך למחוק את',
@@ -29,5 +29,56 @@ export const terms = {
   RTL: true,
   requiredFiled: 'שדה חובה',
   uniqueFiled: 'קיים כבר',
-  createDate: 'תאריך יצירה'
+  createDate: 'תאריך יצירה',
+
+  // Projects module
+  projects: 'פרויקטים',
+  project: 'פרויקט',
+  projectName: 'שם פרויקט',
+  projectDescription: 'תיאור',
+  projectLocation: 'מיקום',
+  addProject: 'הוסף פרויקט',
+
+  // Buildings module
+  buildings: 'בניינים',
+  building: 'בניין',
+  block: 'גוש',
+  plot: 'חלקה',
+  subPlot: 'תת-חלקה',
+  addBuilding: 'הוסף בניין',
+
+  // Apartments module
+  apartments: 'דירות',
+  apartment: 'דירה',
+  floor: 'קומה',
+  propertyType: 'סוג נכס',
+  apartmentSize: 'גודל דירה',
+  addApartment: 'הוסף דירה',
+
+  // Tenants module
+  tenants: 'דיירים',
+  tenant: 'דייר',
+  firstName: 'שם פרטי',
+  lastName: 'שם משפחה',
+  idNumber: 'תעודת זהות',
+  mobile: 'נייד',
+  additionalPhone: 'טלפון נוסף',
+  isRepresentative: 'נציג',
+  isCommitteeMember: 'ועד',
+  isElderly: 'אוכלוסייה מבוגרת/מוגבלת',
+  actualAddress: 'כתובת מגורים בפועל',
+  tenantStatus: 'סטטוס',
+  propertyPercentage: 'אחוז בנכס',
+  notes: 'הערות',
+  addTenant: 'הוסף דייר',
+
+  // Messages module
+  messages: 'הודעות',
+  message: 'הודעה',
+  messageText: 'טקסט הודעה',
+  attachedFiles: 'קבצים מצורפים',
+  recipientIds: 'נמענים',
+  sendStatus: 'סטטוס שליחה',
+  sentDate: 'תאריך שליחה',
+  sendMessage: 'שלח הודעה'
 }

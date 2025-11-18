@@ -1,0 +1,100 @@
+<!-- Header -->
+<div class="modal-header">
+  <h2>{{ isNew ? 'הוספת דייר חדש' : 'עריכת דייר' }}</h2>
+</div>
+
+<!-- Content -->
+<div class="modal-content">
+  <!-- First Name -->
+  <app-base-input-field
+    [label]="terms.firstName"
+    type="text"
+    [(ngModel)]="tenant.firstName"
+    [required]="true">
+  </app-base-input-field>
+
+  <!-- Last Name -->
+  <app-base-input-field
+    [label]="terms.lastName"
+    type="text"
+    [(ngModel)]="tenant.lastName"
+    [required]="true">
+  </app-base-input-field>
+
+  <!-- ID Number -->
+  <app-base-input-field
+    [label]="terms.idNumber"
+    type="text"
+    [(ngModel)]="tenant.idNumber">
+  </app-base-input-field>
+
+  <!-- Mobile -->
+  <app-base-input-field
+    [label]="terms.mobile"
+    type="text"
+    [(ngModel)]="tenant.mobile"
+    [required]="true">
+  </app-base-input-field>
+
+  <!-- Additional Phone -->
+  <app-base-input-field
+    [label]="terms.additionalPhone"
+    type="text"
+    [(ngModel)]="tenant.additionalPhone">
+  </app-base-input-field>
+
+  <!-- Actual Address -->
+  <app-base-input-field
+    [label]="terms.actualAddress"
+    type="text"
+    [(ngModel)]="tenant.actualAddress">
+  </app-base-input-field>
+
+  <!-- Status -->
+  <app-base-input-field
+    [label]="terms.tenantStatus"
+    type="text"
+    [(ngModel)]="tenant.status">
+  </app-base-input-field>
+
+  <!-- Property Percentage -->
+  <app-base-input-field
+    [label]="terms.propertyPercentage"
+    type="number"
+    [(ngModel)]="tenant.propertyPercentage">
+  </app-base-input-field>
+
+  <!-- Notes -->
+  <app-base-input-field
+    [label]="terms.notes"
+    type="text"
+    [(ngModel)]="tenant.notes">
+  </app-base-input-field>
+
+  <!-- Is Representative checkbox -->
+  <div class="checkbox-field">
+    <mat-checkbox [(ngModel)]="tenant.isRepresentative">
+      {{ terms.isRepresentative }}
+    </mat-checkbox>
+  </div>
+
+  <!-- Is Committee Member checkbox -->
+  <div class="checkbox-field">
+    <mat-checkbox [(ngModel)]="tenant.isCommitteeMember">
+      {{ terms.isCommitteeMember }}
+    </mat-checkbox>
+  </div>
+
+  <!-- Is Elderly checkbox -->
+  <div class="checkbox-field">
+    <mat-checkbox [(ngModel)]="tenant.isElderly">
+      {{ terms.isElderly }}
+    </mat-checkbox>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="modal-footer">
+  <button mat-button (click)="cancel()">{{ terms.cancel }}</button>
+  <button mat-raised-button color="primary" (click)="save()">{{ terms.ok }}</button>
+</div>

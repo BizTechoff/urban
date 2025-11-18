@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
 import { MatDialogRef, MatDialog } from "@angular/material/dialog"
-import { WaitComponent } from "./components/wait/wait.component"
+import { WaitComponent } from "./wait.component"
 
 @Injectable()
 export class BusyService {
