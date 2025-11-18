@@ -55,6 +55,10 @@ export class dummyRoute extends ActivatedRouteSnapshot {
 
 @Injectable()
 export class AdminGuard extends AuthenticatedGuard {
+  constructor(remult: Remult, router: Router, helper: RouteHelperService) {
+    super(remult, router, helper)
+  }
+
   override isAllowed() {
     return Roles.admin
   }
@@ -62,6 +66,10 @@ export class AdminGuard extends AuthenticatedGuard {
 
 @Injectable()
 export class ManagerGuard extends AuthenticatedGuard {
+  constructor(remult: Remult, router: Router, helper: RouteHelperService) {
+    super(remult, router, helper)
+  }
+
   override isAllowed() {
     return Roles.manager
   }
