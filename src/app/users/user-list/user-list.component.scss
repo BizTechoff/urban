@@ -1,8 +1,9 @@
 .users-container {
   padding: 20px;
-  height: calc(100vh - 100px);
+  height: 100%;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .header {
