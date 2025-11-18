@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, ContentChildren, QueryList, TemplateRef } from '@angular/core'
-import { TableColumn, SortEvent, PageEvent } from './table.interfaces'
+import { Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef } from '@angular/core'
+import { remult } from 'remult'
 import { TableColumnDirective } from './table-column.directive'
+import { PageEvent, SortEvent, TableColumn } from './table.interfaces'
 
 @Component({
   selector: 'app-base-table',
@@ -11,6 +12,7 @@ export class BaseTableComponent implements OnInit, OnChanges {
   // Data inputs
   @Input() data: any[] | null = []
   @Input() columns?: TableColumn[]
+  @Input() entityType?: any  // Remult Entity class for metadata
   @Input() loading = false
   @Input() totalRecords = 0
   @Input() currentPage = 1
@@ -106,18 +108,33 @@ export class BaseTableComponent implements OnInit, OnChanges {
   }
 
   private getFieldCaption(field: string, row: any): string {
-    // Try to get caption from Remult field metadata
     try {
-      const repo = (row as any).$
-      if (repo && repo[field] && repo[field].caption) {
-        return repo[field].caption
+      // Option 1: Try to get from entityType input
+      if (this.entityType) {
+        const repo = remult.repo(this.entityType)
+        const fields = repo.metadata.fields as any
+        const fieldMetadata = fields[field]
+        if (fieldMetadata?.caption) {
+          console.log('Found caption from entityType:', field, fieldMetadata.caption)
+          return fieldMetadata.caption
+        }
+      }
+
+      // Option 2: Try to get field metadata from entity reference on row
+      const entityRef = (row as any)._
+      if (entityRef?.fields) {
+        const fieldRef = entityRef.fields[field]
+        if (fieldRef?.caption) {
+          console.log('Found caption from row._:', field, fieldRef.caption)
+          return fieldRef.caption
+        }
       }
     } catch (e) {
-      // Ignore - not a Remult entity
+      console.log('Error getting caption for field:', field, e)
     }
 
-    // Fallback to field name
-    return field
+    // Fallback: capitalize first letter
+    return field.charAt(0).toUpperCase() + field.slice(1)
   }
 
   // Sorting
