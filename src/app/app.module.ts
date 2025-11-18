@@ -23,7 +23,6 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 // import { CommonUIElementsModule } from 'common-ui-elements'
 import { HomeComponent } from './home/home.component'
-import { UsersComponent } from './users/users.component'
 import { BaseInputFieldComponent } from './common/components/base-input-field/base-input-field.component'
 import { YesNoQuestionComponent } from './common/components/yes-no-question/yes-no-question.component'
 import { BaseTableComponent } from './common/components/base-table/base-table.component'
@@ -40,16 +39,20 @@ import { ShowDialogOnErrorErrorHandler } from './common/showDialogOnErrorErrorHa
 import { setMatDialog } from './common/openDialog'
 import { MatDialog } from '@angular/material/dialog'
 import { SignInController } from './users/SignInController'
+import { UserDetailsModalComponent } from './users/user-details-modal/user-details-modal.component';
+import { UserListComponent } from './users/user-list/user-list.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
+    UserListComponent,
     HomeComponent,
     BaseInputFieldComponent,
     YesNoQuestionComponent,
     BaseTableComponent,
     TableColumnDirective,
+    UserDetailsModalComponent,
+    UserListComponent
     // DataAreaDialogComponent,
     // TextAreaDataControlComponent,
     // AddressInputComponent,

@@ -6,15 +6,15 @@ import { HomeComponent } from './home/home.component'
 import { AdminGuard, NotAuthenticatedGuard } from './common/authGuard'
 import { ShowDialogOnErrorErrorHandler } from './common/showDialogOnErrorErrorHandler'
 import { terms } from './terms'
-import { UsersComponent } from './users/users.component'
 import { SilentRedirectComponent } from './users/silent-redirect.component'
+import { UserListComponent } from './users/user-list/user-list.component'
 
 const defaultRoute = terms.home
 const routes: Routes = [
   { path: defaultRoute, component: HomeComponent, canActivate: [NotAuthenticatedGuard] },
   {
     path: terms.userAccounts,
-    component: UsersComponent,
+    component: UserListComponent,
     canActivate: [AdminGuard],
   },
   { path: '', component: SilentRedirectComponent, pathMatch: 'full' },
