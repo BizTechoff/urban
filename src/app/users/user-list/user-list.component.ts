@@ -23,7 +23,7 @@ export class UserListComponent {
 
   // Current filters/sorting
   currentFilter = ''
-  currentSort: SortEvent = { field: 'name', direction: 'asc' }
+  currentSort: SortEvent | null = null  // null = use Entity's defaultOrderBy
 
   // LiveQuery mode toggle
   useLiveQuery = false  // ברירת מחדל: Regular query
@@ -59,8 +59,8 @@ export class UserListComponent {
       // Call service → controller → DB
       const response = await this.usersService.getUsers({
         filter: this.currentFilter,
-        sortField: this.currentSort.field,
-        sortDirection: this.currentSort.direction,
+        sortField: this.currentSort?.field,
+        sortDirection: this.currentSort?.direction,
         page: this.currentPage,
         pageSize: this.pageSize
       })
@@ -84,8 +84,8 @@ export class UserListComponent {
     // Subscribe to LiveQuery
     const liveQuery = this.usersService.getUsersLive({
       filter: this.currentFilter,
-      sortField: this.currentSort.field,
-      sortDirection: this.currentSort.direction,
+      sortField: this.currentSort?.field,
+      sortDirection: this.currentSort?.direction,
       page: this.currentPage,
       pageSize: this.pageSize
     })

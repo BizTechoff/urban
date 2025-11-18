@@ -22,7 +22,7 @@ export class UsersController extends ControllerBase {
   static async getUsers(request: GetUsersRequest): Promise<GetUsersResponse> {
     const {
       filter = '',
-      sortField = 'name',
+      sortField,
       sortDirection = 'asc',
       page = 1,
       pageSize = 30
@@ -33,13 +33,20 @@ export class UsersController extends ControllerBase {
       ? { name: { $contains: filter } }
       : {}
 
-    // Query users with filters and sorting
-    const users = await remult.repo(User).find({
+    // Build query options
+    const queryOptions: any = {
       where,
-      orderBy: { [sortField]: sortDirection },
       page,
       limit: pageSize,
-    })
+    }
+
+    // Only add orderBy if sortField is provided, otherwise use Entity's defaultOrderBy
+    if (sortField) {
+      queryOptions.orderBy = { [sortField]: sortDirection }
+    }
+
+    // Query users with filters and sorting
+    const users = await remult.repo(User).find(queryOptions)
 
     // Get total count for pagination
     const totalRecords = await remult.repo(User).count(where)
