@@ -1,32 +1,40 @@
 <div class="login-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>התחברות לפלטפורמה</mat-card-title>
-    </mat-card-header>
+  <div class="login-card">
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <img src="./assets/logo-transparent.png" alt="Logo" class="login-logo">
+    </div>
 
-    <mat-card-content>
-      <form (submit)="signIn()">
-        <app-base-input-field
-          label="שם משתמש"
-          [(ngModel)]="signer.user"
-          name="user"
-          [required]="true"
-        ></app-base-input-field>
+    <!-- Login Form -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>התחברות לפלטפורמה</mat-card-title>
+      </mat-card-header>
 
-        <app-base-input-field
-          label="סיסמה"
-          type="password"
-          [(ngModel)]="signer.password"
-          name="password"
-          [required]="true"
-        ></app-base-input-field>
+      <mat-card-content>
+        <form (submit)="signIn()">
+          <app-base-input-field
+            label="שם משתמש"
+            [(ngModel)]="signer.user"
+            name="user"
+            [required]="true"
+          ></app-base-input-field>
 
-        <div class="button-row">
-          <button mat-raised-button color="primary" type="submit">
-            התחבר
-          </button>
-        </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
+          <app-base-input-field
+            label="סיסמה"
+            type="password"
+            [(ngModel)]="signer.password"
+            name="password"
+            [required]="true"
+          ></app-base-input-field>
+
+          <div class="button-row">
+            <button mat-raised-button color="primary" type="submit">
+              התחבר
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
